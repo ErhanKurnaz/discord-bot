@@ -1,6 +1,7 @@
 package bot
 
 import (
+	"DiscordBot/commands"
 	"DiscordBot/config"
 	"fmt"
 	"strings"
@@ -56,8 +57,22 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 
 	msg = strings.Trim(msg[1:], " ")
+	if msg == "" {
+		s.ChannelMessageSend(m.ChannelID, "No command provided, you ho")
+		return
+	}
 
-	if msg == "ping" {
-		_, _ = s.ChannelMessageSend(m.ChannelID, "pong")
+	messageSplit := strings.Split(msg, " ")
+	for i := 0; i < len(messageSplit); i++ {
+		messageSplit[i] = strings.Trim(messageSplit[i], " ")
+	}
+
+	commandType := messageSplit[0]
+	args := messageSplit[1:]
+
+	if command, ok := commands.Commands[commandType]; ok {
+		command.Command(args, s, m)
+	} else {
+		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("The '%s' command doesn't exist yet, maybe bother Erhan about it and leave me alone", commandType))
 	}
 }
