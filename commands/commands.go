@@ -25,6 +25,13 @@ var Commands = map[string]Command{
 Bot: pong`,
 		Command: Ping,
 	},
+	"help": {
+		Name:        "help",
+		Description: "Will provide you with a link to the list of commands",
+		Usage: `You: !help
+Bot: [link to commands]`,
+		Command: Help,
+	},
 }
 
 func GenerateReadme() error {
@@ -63,7 +70,7 @@ func GenerateReadme() error {
 		lines = append(lines, fmt.Sprintf("<summary>%s</summary>", name))
 		lines = append(lines, command.Description)
 		if command.Usage != "" {
-			lines = append(lines, "### usage")
+			lines = append(lines, "\n### usage\n")
 			lines = append(lines, "```")
 			lines = append(lines, strings.Trim(command.Usage, "\n"))
 			lines = append(lines, "```")
