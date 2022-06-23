@@ -7,6 +7,7 @@ a discord bot written in go
 
 <details>
 <summary>ping</summary>
+<br>
 Will return the text 'pong'. this is used to test if the bot is still running and working.
 
 ### usage
@@ -18,6 +19,7 @@ Bot: pong
 </details>
 <details>
 <summary>help</summary>
+<br>
 Will provide you with a link to the list of commands
 
 ### usage

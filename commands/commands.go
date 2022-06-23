@@ -68,6 +68,7 @@ func GenerateReadme() error {
 	for name, command := range Commands {
 		lines = append(lines, "<details>")
 		lines = append(lines, fmt.Sprintf("<summary>%s</summary>", name))
+		lines = append(lines, "<br>")
 		lines = append(lines, command.Description)
 		if command.Usage != "" {
 			lines = append(lines, "\n### usage\n")
