@@ -29,3 +29,15 @@ You: !help
 Bot: [link to commands]
 ```
 </details>
+<details>
+<summary>image</summary>
+<br>
+Will post a random image based on your search term
+
+### usage
+
+```
+You: !image [SEARCH TERM]
+Bot: [LINK TO RANDOM IMAGE WHICH WILL GET EMBEDDED]
+```
+</details>

@@ -7,15 +7,14 @@ import (
 )
 
 var (
-	Token     string
-	BotPrefix string
-
-	config *configStruct
+	Config *configStruct
 )
 
 type configStruct struct {
-	Token     string `json: "Token"`
-	BotPrefix string `json: "BotPrefix"`
+	Token             string `json: "Token"`
+	BotPrefix         string `json: "BotPrefix"`
+	UnsplashAccessKey string `json: "UnsplashAccessKey"`
+	UnsplashSecretKey string `json: "UnsplashSecretKey"`
 }
 
 func ReadConfig() error {
@@ -28,15 +27,12 @@ func ReadConfig() error {
 	}
 
 	fmt.Println(string(file))
-	err = json.Unmarshal(file, &config)
+	err = json.Unmarshal(file, &Config)
 
 	if err != nil {
 		fmt.Println(err.Error())
 		return err
 	}
-
-	Token = config.Token
-	BotPrefix = config.BotPrefix
 
 	return nil
 }

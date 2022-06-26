@@ -32,6 +32,13 @@ Bot: pong`,
 Bot: [link to commands]`,
 		Command: Help,
 	},
+	"image": {
+		Name:        "image",
+		Description: "Will post a random image based on your search term",
+		Usage: `You: !image [SEARCH TERM]
+Bot: [LINK TO RANDOM IMAGE WHICH WILL GET EMBEDDED]`,
+		Command: RandomImage,
+	},
 }
 
 func GenerateReadme() error {

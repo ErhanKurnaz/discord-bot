@@ -14,7 +14,7 @@ var (
 )
 
 func Start() *discordgo.Session {
-	goBot, err := discordgo.New("Bot " + config.Token)
+	goBot, err := discordgo.New("Bot " + config.Config.Token)
 
 	if err != nil {
 		fmt.Println(err.Error())
@@ -52,7 +52,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	msg := strings.Trim(m.Content, " ")
 
-	if msg[0:1] != config.BotPrefix {
+	if msg[0:1] != config.Config.BotPrefix {
 		return
 	}
 
