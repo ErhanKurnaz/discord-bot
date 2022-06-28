@@ -2,11 +2,8 @@ package commands
 
 import (
 	"DiscordBot/config"
-	"encoding/json"
+	"DiscordBot/util/rest"
 	"fmt"
-	"io/ioutil"
-	"net/http"
-	"net/url"
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
@@ -26,40 +23,21 @@ type unsplashPhotoResponse struct {
 }
 
 func RandomImage(args []string, s *discordgo.Session, m *discordgo.MessageCreate) {
-	query := "?content_filter=high"
+	headers := map[string]string{
+		"Authorization": fmt.Sprintf("Client-ID %s", config.Config.UnsplashAccessKey),
+	}
+
+	queries := map[string]string{}
+
+	queries["content_filter"] = "high"
 	if len(args) != 0 {
-		query = fmt.Sprintf("%s&query=%s", query, strings.Join(args, " "))
+		queries["query"] = strings.Join(args, " ")
 	}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/photos/random%s", unsplash_url, url.QueryEscape(query)), nil)
-	if err != nil {
-		s.ChannelMessageSend(m.ChannelID, "Could not get images")
-		return
-	}
-
-	req.Header.Add("Authorization", fmt.Sprintf("Client-ID %s", config.Config.UnsplashAccessKey))
-
-	resp, err := http.DefaultClient.Do(req)
+	response, err := rest.Get[unsplashPhotoResponse](fmt.Sprintf("%s/photos/random", unsplash_url), queries, headers)
 
 	if err != nil {
 		s.ChannelMessageSend(m.ChannelID, "Could not get images")
-		return
-	}
-
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		s.ChannelMessageSend(m.ChannelID, "Couldn't map body")
-		return
-	}
-
-	var response unsplashPhotoResponse
-	err = json.Unmarshal(body, &response)
-
-	if err != nil {
-		s.ChannelMessageSend(m.ChannelID, "Couldn't map body")
 		return
 	}
 
