@@ -39,6 +39,13 @@ Bot: [link to commands]`,
 Bot: [LINK TO RANDOM IMAGE WHICH WILL GET EMBEDDED]`,
 		Command: RandomImage,
 	},
+	"me": {
+		Name:        "me",
+		Description: "Will post the profile image of the person who called this command",
+		Usage: `You: !me
+Bot: [PROFILE IMAGE]`,
+		Command: Me,
+	},
 }
 
 func GenerateReadme() error {

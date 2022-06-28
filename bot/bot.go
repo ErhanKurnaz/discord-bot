@@ -52,7 +52,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	msg := strings.Trim(m.Content, " ")
 
-	if msg[0:1] != config.Config.BotPrefix {
+	if len(msg) == 0 || msg[0:1] != config.Config.BotPrefix {
 		return
 	}
 
