@@ -6,6 +6,7 @@ import (
 	"image"
 	"image/color"
 	"image/jpeg"
+	"math/rand"
 	"os"
 	"strings"
 
@@ -240,8 +241,7 @@ func Me(args []string, s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 	defer f.Close()
 
-	// effect := rand.Intn(totalEffects)
-	effect := rainbow
+	effect := rand.Intn(totalEffects)
 
 	var message *discordgo.MessageSend
 
